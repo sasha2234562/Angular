@@ -12,12 +12,6 @@ interface Lesson {
   peopleThree?: Person;
 }
 
-export interface Singer {
-  name: string
-  lastName: string
-  age: number
-}
-
 @Component({
   selector: 'app-parent',
   standalone: true,
@@ -26,7 +20,13 @@ export interface Singer {
   styleUrl: './parent.component.scss'
 })
 export class ParentComponent {
+  isLoading = true
+constructor() {
+  setInterval(()=> {
+this.isLoading = !this.isLoading
+  }, 1500)
 
+}
 
   greade: Array<string> = ['math:5']
 
