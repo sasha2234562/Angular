@@ -1,0 +1,12 @@
+<app-clild
+ (sengGreateEvent)="getGreade($event)"
+ (sengName)="getName($event)"
+>
+</app-clild>
+<h2>{{greade | json}}</h2>
+<span style="color: blue" *ngFor="let item of names">{{item}}</span>
+
+<div *ngFor="let lesson of lessons" style="display: flex">
+  <h2 style="color: blue">{{lesson.peopleOne?.firstName}} </h2>
+<h2 style="color: blue">{{lesson.peopleOne?.lastName}}</h2>
+</div>
