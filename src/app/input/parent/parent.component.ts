@@ -22,12 +22,15 @@ interface Lesson {
 })
 export class ParentComponent {
   isLoading = true
+  slyle = true
 
   constructor() {
-    setInterval(() => {
+    setTimeout(() => {
       this.isLoading = !this.isLoading
     }, 1500)
-
+    setInterval(() => {
+      this.slyle = !this.slyle
+    }, 1000)
   }
 
   greade: Array<string> = ['math:5']
