@@ -1,9 +1,2 @@
-<div style="font-size: 25px; display: flex" *ngFor="let fruit of fruits; even as even; odd as odd">
-  <div *ngIf="fruit.price > 7" style="margin-right: 125px"
-       [ngClass]="{odd: odd, even: even, special: fruit.price> 15}">{{fruit.name}}
-    : {{fruit.price}}</div>
-</div>
-
-<div style="margin: 11px 22px">{{text | uppercase | slice: 0: 5}}</div>
-<div>{{count}}</div>
 <div>service:{{value}}</div>
+<button (click)="dec()">Dec</button>
