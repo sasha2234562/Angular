@@ -1,22 +1,15 @@
 import {Component} from '@angular/core';
-import {FormsModule} from "@angular/forms";
-import {ParentComponent} from "./input/parent/parent.component";
-
-interface IObg {
-  name: string
-  age: number
-}
+import {CommonModule} from '@angular/common';
+import {RouterOutlet} from '@angular/router';
+import {ParentComponent} from "./parent/parent.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [CommonModule, RouterOutlet, ParentComponent],
   templateUrl: './app.component.html',
-  imports: [
-    FormsModule,
-    ParentComponent
-  ],
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.css'
 })
 export class AppComponent {
-
+  title = 'my-first-project';
 }
