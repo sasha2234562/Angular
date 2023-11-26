@@ -39,7 +39,7 @@ this.isLoading = !this.isLoading
   getName(value: string) {
     this.names.unshift(value)
   }
-
+arr = [1, 2, 3, 4, 5]
   lessons: Lesson[] = [
     {peopleOne: {
         firstName: "Dasha",

@@ -6,13 +6,8 @@
 <h2>{{greade | json}}</h2>
 <span style="color: blue" *ngFor="let item of names">{{item}}</span>
 
-<div *ngIf="isLoading">
+<div *ngIf="isLoading; else elseBlock">
   <h1>Loading...</h1></div>
-
-  <div *ngIf="!isLoading">
-    <div *ngFor="let lesson of lessons" style="display: flex" >
-      <h2 style="color: blue">{{lesson.peopleOne?.firstName}}...</h2>
-      <h2 style="color: blue">{{lesson.peopleOne?.lastName}}</h2>
-    </div>
-  </div>
-
+<ng-template #elseBlock>
+  <div *ngFor="let i of arr "><span>{{i}}</span></div>
+</ng-template>
