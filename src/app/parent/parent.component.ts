@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ServiseService} from "../../servise/servise.service";
+import {ServiceService} from "../../servise/service.service";
 
 interface Fruit {
   id: string
@@ -15,13 +15,20 @@ interface Fruit {
   templateUrl: './parent.component.html',
   styleUrl: './parent.component.scss'
 })
-export class ParentComponent {
+export class ParentComponent implements OnInit {
   count = 0
-constructor(private ServiseService: ServiseService) {
-    setInterval(()=> {
+  value: number = 0
+
+  constructor(private ServiceService: ServiceService) {
+    setInterval(() => {
       this.count++
     }, 1000)
-}
+  }
+
+  ngOnInit(): void {
+    this.value = this.ServiceService.value
+  }
+
   text = "Hello my dream"
 
   fruits: Fruit[] = [
