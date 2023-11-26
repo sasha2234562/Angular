@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ClildComponent} from "../clild/clild.component";
+
 interface Person {
   firstName: string;
   lastName: string;
@@ -21,12 +22,13 @@ interface Lesson {
 })
 export class ParentComponent {
   isLoading = true
-constructor() {
-  setInterval(()=> {
-this.isLoading = !this.isLoading
-  }, 1500)
 
-}
+  constructor() {
+    setInterval(() => {
+      this.isLoading = !this.isLoading
+    }, 1500)
+
+  }
 
   greade: Array<string> = ['math:5']
 
@@ -39,19 +41,26 @@ this.isLoading = !this.isLoading
   getName(value: string) {
     this.names.unshift(value)
   }
-arr = [1, 2, 3, 4, 5]
+
+  arr = [1, 2, 3]
   lessons: Lesson[] = [
-    {peopleOne: {
+    {
+      peopleOne: {
         firstName: "Dasha",
         lastName: "Haritonova"
-      }},
-    {peopleTwo: {
-      firstName: "Alina",
+      }
+    },
+    {
+      peopleTwo: {
+        firstName: "Alina",
         lastName: "Safonova"
-      }},
-    {peopleThree: {
-      firstName: "Masha",
+      }
+    },
+    {
+      peopleThree: {
+        firstName: "Masha",
         lastName: "Belova"
-      }}
+      }
+    }
   ]
 }

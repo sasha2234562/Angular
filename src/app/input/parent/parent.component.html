@@ -11,3 +11,9 @@
 <ng-template #elseBlock>
   <div *ngFor="let i of arr "><span>{{i}}</span></div>
 </ng-template>
+<div [ngSwitch]="arr.length">
+  <div *ngSwitchCase="1">One</div>
+  <div *ngSwitchCase="2">Two</div>
+  <div *ngSwitchCase="3">Tree</div>
+  <div *ngSwitchCase="4">Four</div>
+</div>
