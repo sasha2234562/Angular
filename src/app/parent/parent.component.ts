@@ -17,7 +17,7 @@ interface Fruit {
   providers: [ServiceService]
 })
 export class ParentComponent implements OnInit {
-  value: number = 0
+  value = 0
 
   constructor(private ServiceService: ServiceService) {}
 
@@ -26,7 +26,9 @@ export class ParentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.value = this.ServiceService.value
+    this.ServiceService.value$.subscribe((v)=> {
+      this.value = v
+    })
   }
 
 }

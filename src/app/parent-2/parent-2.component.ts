@@ -21,6 +21,8 @@ export class Parent2Component implements OnInit {
   }
 
   ngOnInit() {
-    this.value2 = this.ServiceService.value
+    this.ServiceService.value$.subscribe(v2 => {
+      this.value2 = v2
+    })
   }
 }
