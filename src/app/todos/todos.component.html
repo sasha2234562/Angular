@@ -1,8 +1,12 @@
-<div *ngFor="let todo of todo">{{todo.title}}___ {{todo.addedDate| date}}___ {{todo.id}}</div>
-<input #newTitle type="text" (input)="onChangeTitle($event); ">
-<button (click)="creteTodo() ;newTitle.value = ''">Create</button>
+<h1 *ngIf="!!errorServer" class="error">{{errorServer}}</h1>
 
-<div>
-  <input #newHero type="text" (input)="onChangeId($event)">
-  <button (click)="deleteTodo(); newHero.value = ''">Delete</button>
+<div *ngIf="!errorServer">
+  <div *ngFor="let todo of todo">{{todo.title}}___ {{todo.addedDate| date}}___ {{todo.id}}</div>
+  <input #newTitle type="text" (input)="onChangeTitle($event); ">
+  <button (click)="creteTodo() ;newTitle.value = ''">Create</button>
+  <div class="error">{{error}}</div>
+  <div>
+    <input #newHero type="text" (input)="onChangeId($event)">
+    <button (click)="deleteTodo(); newHero.value = ''">Delete</button>
+  </div>
 </div>
