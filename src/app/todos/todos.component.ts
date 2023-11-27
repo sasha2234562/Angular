@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Res, Todo, TodoService} from "../servise/todo.service";
 import {HttpErrorResponse} from "@angular/common/http";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-todos',
@@ -11,31 +11,21 @@ import {Subscription} from "rxjs";
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.scss'
 })
-export class TodosComponent implements OnInit, OnDestroy {
+export class TodosComponent implements OnInit {
   constructor(private todoService: TodoService) {
   }
 
-  todo: Todo[] = []
+  todos$!: Observable<Todo[]>
   title: string = ''
   todoId = ''
   error = []
   errorServer = ''
-  subscription: Subscription = new Subscription()
 
   ngOnInit(): void {
-    this.todoService.getTodos().subscribe(
-      {
-        next: (res: Todo[]) => this.todo = res,
-        error: (err: HttpErrorResponse) => {
-          this.errorServer = err.message
-        }
-      }
-    )
+    this.todos$ = this.todoService.todos$
+    this.todoService.getTodos()
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe()
-  }
 
   onChangeTitle(event: Event) {
     this.title = (event.currentTarget as HTMLInputElement).value
@@ -45,25 +35,11 @@ export class TodosComponent implements OnInit, OnDestroy {
     this.todoId = (event.currentTarget as HTMLInputElement).value
   }
 
-  creteTodo() {
-    this.subscription.add(
-      this.todoService.creteTodo(this.title).subscribe((res: Res) => {
-        if (res.resultCode === 0) {
-          this.todo = [res.data.item, ...this.todo]
-        }
-        this.error = res.messages
-      }))
+  createTodo() {
+    this.todoService.creteTodo(this.title)
   }
 
   deleteTodo() {
-    this.subscription.add(
-      this.todoService.deleteTodo(this.todoId).subscribe({
-        next: () => {
-          this.todo = this.todo.filter(t => t.id !== this.todoId)
-        },
-        error: (err: HttpErrorResponse) => {
-          this.errorServer = err.error.message
-        }
-      }))
+    this.todoService.deleteTodo(this.todoId)
   }
 }

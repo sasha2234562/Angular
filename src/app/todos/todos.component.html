@@ -1,9 +1,9 @@
 <h1 *ngIf="!!errorServer" class="error">{{errorServer}}</h1>
 
 <div *ngIf="!errorServer">
-  <div *ngFor="let todo of todo">{{todo.title}}___ {{todo.addedDate| date}}___ {{todo.id}}</div>
+  <div *ngFor="let todo of todos$ | async">{{todo.title}}___ {{todo.addedDate| date}}___ {{todo.id}}</div>
   <input #newTitle type="text" (input)="onChangeTitle($event); ">
-  <button (click)="creteTodo() ;newTitle.value = ''">Create</button>
+  <button (click)="createTodo() ;newTitle.value = ''">Create</button>
   <div class="error">{{error}}</div>
   <div>
     <input #newHero type="text" (input)="onChangeId($event)">
