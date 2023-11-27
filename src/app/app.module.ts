@@ -1,5 +1,6 @@
 import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   bootstrap: [AppComponent],
@@ -7,7 +8,7 @@ import {AppComponent} from "./app.component";
   ],
   exports: [
   ],
-  imports: [],
+  imports: [HttpClientModule],
   providers: []
 })
 export class AppModule{}

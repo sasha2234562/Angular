@@ -1,16 +1,16 @@
 import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterOutlet} from '@angular/router';
-import {ParentComponent} from "./parent/parent.component";
-import {Parent2Component} from "./parent-2/parent-2.component";
+import {TodosComponent} from "./todos/todos.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, ParentComponent, Parent2Component],
+  imports: [CommonModule, RouterOutlet, TodosComponent, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'my-first-project';
+
 }
