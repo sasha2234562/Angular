@@ -1,1 +1,8 @@
 <div *ngFor="let todo of todo">{{todo.title}}___ {{todo.addedDate| date}}___ {{todo.id}}</div>
+<input type="text" (input)="onChangeTitle($event)">
+<button (click)="creteTodo()">Create</button>
+
+<div>
+  <input type="text" (input)="onChangeId($event)">
+  <button (click)="deleteTodo()">Delete</button>
+</div>
