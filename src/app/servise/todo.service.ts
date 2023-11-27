@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {environment} from "../../environments/environment";
 
 export interface Todo {
   addedDate: string
@@ -15,35 +16,31 @@ export interface Res {
   messages: []
   resultCode: number
 }
+
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
+
+  httpOptions = {
+    withCredentials: true,
+    headers: {
+      "api-key": environment.apiKey
+    }
+  }
 
   getTodos(): Observable<Todo[]> {
-   return  this.http.get<Todo[]>("https://social-network.samuraijs.com/api/1.1/todo-lists", {
-      withCredentials: true,
-      headers: {
-        "api-key": "02801dc9-c643-40b7-9ded-224fb486763d"
-      }
-    })
+    return this.http.get<Todo[]>(environment.baseUrl, this.httpOptions)
   }
+
   creteTodo(title: string): Observable<Res> {
-   return  this.http.post<Res>("https://social-network.samuraijs.com/api/1.1/todo-lists", {title}, {
-      withCredentials: true,
-      headers: {
-        "api-key": "02801dc9-c643-40b7-9ded-224fb486763d"
-      }
-    })
+    return this.http.post<Res>(environment.baseUrl, {title}, this.httpOptions)
   }
+
   deleteTodo(todoId: string): Observable<Res> {
-    return this.http.delete<Res>(`https://social-network.samuraijs.com/api/1.1/todo-lists/${todoId}`, {
-      withCredentials: true,
-      headers: {
-        "api-key": "02801dc9-c643-40b7-9ded-224fb486763d"
-      }
-    })
+    return this.http.delete<Res>(`${environment.baseUrl}/${todoId}`, this.httpOptions)
   }
 }
