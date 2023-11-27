@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ServiceService} from "../../servise/service.service";
 import {Observable} from "rxjs";
+import {ServiceLogService} from "../../servise/service-log.service";
 
 @Component({
   selector: 'app-parent-2',
@@ -12,7 +13,7 @@ import {Observable} from "rxjs";
   providers: [ServiceService]
 })
 export class Parent2Component implements OnInit {
-  constructor(private ServiceService: ServiceService) {
+  constructor(private ServiceService: ServiceService, private ServiceLogService: ServiceLogService) {
   }
 
   value2 = 0
@@ -20,10 +21,12 @@ export class Parent2Component implements OnInit {
 
   add() {
     this.ServiceService.add()
+    this.ServiceLogService.log("add1", "info")
   }
 
   add2() {
     this.ServiceService.add2()
+    this.ServiceLogService.log("add2", "error")
   }
 
   ngOnInit() {
