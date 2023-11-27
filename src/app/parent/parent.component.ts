@@ -1,12 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ServiceService} from "../../servise/service.service";
+import {Observable} from "rxjs";
 
-interface Fruit {
-  id: string
-  name: string
-  price: number
-}
 
 @Component({
   selector: 'app-parent',
@@ -18,17 +14,23 @@ interface Fruit {
 })
 export class ParentComponent implements OnInit {
   value = 0
+  value2$ = new Observable()
 
-  constructor(private ServiceService: ServiceService) {}
+  constructor(private ServiceService: ServiceService) {
+  }
 
   dec() {
     this.ServiceService.dec()
   }
 
-  ngOnInit(): void {
-    this.ServiceService.value$.subscribe((v)=> {
-      this.value = v
-    })
+  dec2() {
+    this.ServiceService.dec2()
   }
 
+  ngOnInit(): void {
+    this.ServiceService.value$.subscribe((v) => {
+      this.value = v
+    })
+    this.value2$ = this.ServiceService.value2$
+  }
 }
