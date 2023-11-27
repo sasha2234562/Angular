@@ -4,10 +4,8 @@ import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   bootstrap: [AppComponent],
-  declarations: [
-  ],
-  exports: [
-  ],
+  declarations: [],
+  exports: [],
   imports: [HttpClientModule],
   providers: []
 })

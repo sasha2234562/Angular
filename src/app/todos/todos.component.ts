@@ -1,13 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {HttpClient} from "@angular/common/http";
-
-interface Todo {
-  addedDate: string
-  id: string
-  order: string
-  title: string
-}
+import {Res, Todo, TodoService} from "../servise/todo.service";
 
 @Component({
   selector: 'app-todos',
@@ -17,7 +10,7 @@ interface Todo {
   styleUrl: './todos.component.scss'
 })
 export class TodosComponent implements OnInit {
-  constructor(private http: HttpClient) {
+  constructor(private todoService: TodoService) {
   }
 
   todo: Todo[] = []
@@ -25,23 +18,14 @@ export class TodosComponent implements OnInit {
   todoId = ''
 
   ngOnInit(): void {
-    this.getTodos()
-  }
-
-  getTodos() {
-    this.http.get<Todo[]>("https://social-network.samuraijs.com/api/1.1/todo-lists", {
-      withCredentials: true,
-      headers: {
-        "api-key": "02801dc9-c643-40b7-9ded-224fb486763d"
-      }
-    }).subscribe(res => {
+    this.todoService.getTodos().subscribe((res: Todo[]) => {
+      console.log(res)
       this.todo = res
     })
   }
 
   onChangeTitle(event: Event) {
     this.title = (event.currentTarget as HTMLInputElement).value
-    console.log((event.currentTarget as HTMLInputElement).value)
   }
 
   onChangeId(event: Event) {
@@ -49,25 +33,15 @@ export class TodosComponent implements OnInit {
   }
 
   creteTodo() {
-    this.http.post("https://social-network.samuraijs.com/api/1.1/todo-lists", {title: this.title}, {
-      withCredentials: true,
-      headers: {
-        "api-key": "02801dc9-c643-40b7-9ded-224fb486763d"
-      }
-    }).subscribe(res => {
-
+    this.todoService.creteTodo(this.title).subscribe((res: Res) => {
+      this.todo = [res.data.item, ...this.todo]
     })
   }
 
+
   deleteTodo() {
-    this.http.delete(`https://social-network.samuraijs.com/api/1.1/todo-lists/${this.todoId}`, {
-      withCredentials: true,
-      headers: {
-        "api-key": "02801dc9-c643-40b7-9ded-224fb486763d"
-      }
-    }).subscribe(res => {
+    this.todoService.deleteTodo(this.todoId).subscribe(() => {
       this.todo = this.todo.filter(t => t.id !== this.todoId)
-      console.log(res)
     })
   }
 }
