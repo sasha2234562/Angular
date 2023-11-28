@@ -26,20 +26,32 @@ export class TodosComponent implements OnInit {
     this.todoService.getTodos()
   }
 
-
-  onChangeTitle(event: Event) {
-    this.title = (event.currentTarget as HTMLInputElement).value
+  onChangeDelete(todoId: string) {
+    this.todoService.deleteTodo(todoId)
   }
 
-  onChangeId(event: Event) {
-    this.todoId = (event.currentTarget as HTMLInputElement).value
+  onChangeCreate(event: Event) {
+    this.title = (event.currentTarget as  HTMLInputElement).value
+  }
+  createTodo(){
+    this.todoService.createTodo(this.title)
   }
 
-  createTodo() {
-    this.todoService.creteTodo(this.title)
-  }
-
-  deleteTodo() {
-    this.todoService.deleteTodo(this.todoId)
-  }
+  //
+  //
+  // onChangeTitle(event: Event) {
+  //   this.title = (event.currentTarget as HTMLInputElement).value
+  // }
+  //
+  // onChangeId(event: Event) {
+  //   this.todoId = (event.currentTarget as HTMLInputElement).value
+  // }
+  //
+  // createTodo() {
+  //   this.todoService.creteTodo(this.title)
+  // }
+  //
+  // deleteTodo() {
+  //   this.todoService.deleteTodo(this.todoId)
+  // }
 }

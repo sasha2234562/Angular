@@ -40,15 +40,33 @@ export class TodoService {
     })
   }
 
-  creteTodo(title: string) {
-    this.http.post<Res>(environment.baseUrl, {title}, this.httpOptions).subscribe((res: Res) => {
+  deleteTodo(todoId: string) {
+    return this.http.delete(`${environment.baseUrl}/${todoId}`, this.httpOptions).subscribe(() => {
+      this.todos$.next(this.todos$.getValue().filter(i => i.id !== todoId))
+    })
+  }
+
+  createTodo(title: string) {
+    return this.http.post<Res>(`${environment.baseUrl}`, {title}, this.httpOptions).subscribe(res => {
       this.todos$.next([res.data.item, ...this.todos$.getValue()])
     })
   }
 
-  deleteTodo(todoId: string) {
-    this.http.delete<Res>(`${environment.baseUrl}/${todoId}`, this.httpOptions).subscribe(() => {
-      this.todos$.next(this.todos$.getValue().filter(f => f.id !== todoId))
-    })
-  }
+  // getTodos() {
+  //   return this.http.get<Todo[]>(environment.baseUrl, this.httpOptions).subscribe((t) => {
+  //     this.todos$.next(t)
+  //   })
+  // }
+  //
+  // creteTodo(title: string) {
+  //   this.http.post<Res>(environment.baseUrl, {title}, this.httpOptions).subscribe((res: Res) => {
+  //     this.todos$.next([res.data.item, ...this.todos$.getValue()])
+  //   })
+  // }
+  //
+  // deleteTodo(todoId: string) {
+  //   this.http.delete<Res>(`${environment.baseUrl}/${todoId}`, this.httpOptions).subscribe(() => {
+  //     this.todos$.next(this.todos$.getValue().filter(f => f.id !== todoId))
+  //   })
+  // }
 }

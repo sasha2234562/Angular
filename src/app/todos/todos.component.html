@@ -1,12 +1,10 @@
 <h1 *ngIf="!!errorServer" class="error">{{errorServer}}</h1>
 
 <div *ngIf="!errorServer">
-  <div *ngFor="let todo of todos$ | async">{{todo.title}}___ {{todo.addedDate| date}}___ {{todo.id}}</div>
-  <input #newTitle type="text" (input)="onChangeTitle($event); ">
-  <button (click)="createTodo() ;newTitle.value = ''">Create</button>
-  <div class="error">{{error}}</div>
-  <div>
-    <input #newHero type="text" (input)="onChangeId($event)">
-    <button (click)="deleteTodo(); newHero.value = ''">Delete</button>
+  <div *ngFor="let todo of todos$ | async">
+    <div>{{todo.title}} &#8986;{{todo.addedDate | date}}&#9889; {{todo.id}}</div>
+    <button (click)="onChangeDelete(todo.id)">Delete</button>
   </div>
+  <input #newHero type="text" (input)="onChangeCreate($event)">
+  <button (click)="createTodo(); newHero.value = ''">Create</button>
 </div>
