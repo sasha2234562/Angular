@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {BehaviorSubject, Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {BehaviorSubject, map} from "rxjs";
 import {environment} from "../../environments/environment";
 
 export interface Todo {
@@ -41,32 +41,16 @@ export class TodoService {
   }
 
   deleteTodo(todoId: string) {
-    return this.http.delete(`${environment.baseUrl}/${todoId}`, this.httpOptions).subscribe(() => {
-      this.todos$.next(this.todos$.getValue().filter(i => i.id !== todoId))
+     this.http.delete(`${environment.baseUrl}/${todoId}`, this.httpOptions).pipe(map(res=> {
+       return this.todos$.getValue().filter(i => i.id !== todoId)
+     })).subscribe(t => {
+       this.todos$.next(t)
     })
   }
 
   createTodo(title: string) {
-    return this.http.post<Res>(`${environment.baseUrl}`, {title}, this.httpOptions).subscribe(res => {
+     this.http.post<Res>(`${environment.baseUrl}`, {title}, this.httpOptions).subscribe(res => {
       this.todos$.next([res.data.item, ...this.todos$.getValue()])
     })
   }
-
-  // getTodos() {
-  //   return this.http.get<Todo[]>(environment.baseUrl, this.httpOptions).subscribe((t) => {
-  //     this.todos$.next(t)
-  //   })
-  // }
-  //
-  // creteTodo(title: string) {
-  //   this.http.post<Res>(environment.baseUrl, {title}, this.httpOptions).subscribe((res: Res) => {
-  //     this.todos$.next([res.data.item, ...this.todos$.getValue()])
-  //   })
-  // }
-  //
-  // deleteTodo(todoId: string) {
-  //   this.http.delete<Res>(`${environment.baseUrl}/${todoId}`, this.httpOptions).subscribe(() => {
-  //     this.todos$.next(this.todos$.getValue().filter(f => f.id !== todoId))
-  //   })
-  // }
 }

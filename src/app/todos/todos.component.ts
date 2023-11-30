@@ -17,7 +17,6 @@ export class TodosComponent implements OnInit {
 
   todos$!: Observable<Todo[]>
   title: string = ''
-  todoId = ''
   error = []
   errorServer = ''
 
@@ -36,22 +35,4 @@ export class TodosComponent implements OnInit {
   createTodo(){
     this.todoService.createTodo(this.title)
   }
-
-  //
-  //
-  // onChangeTitle(event: Event) {
-  //   this.title = (event.currentTarget as HTMLInputElement).value
-  // }
-  //
-  // onChangeId(event: Event) {
-  //   this.todoId = (event.currentTarget as HTMLInputElement).value
-  // }
-  //
-  // createTodo() {
-  //   this.todoService.creteTodo(this.title)
-  // }
-  //
-  // deleteTodo() {
-  //   this.todoService.deleteTodo(this.todoId)
-  // }
 }
