@@ -1,17 +1,19 @@
-<h1 *ngIf="!!errorServer" class="error">{{errorServer}}</h1>
+<app-login></app-login>
 
-<div *ngIf="!errorServer">
-  <div *ngFor="let todo of todos$ | async">
-    <div>{{todo.title}} &#8986;{{todo.addedDate | date}}&#9889; {{todo.id}}</div>
-    <button (click)="onChangeDelete(todo.id)">Delete</button>
-  </div>
-  <input #newHero type="text" (input)="onChangeCreate($event)">
-  <button (click)="createTodo(); newHero.value = ''">Create</button>
-  <div >{{error[0]}}</div>
-</div>
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <input type="text" placeholder="login" formControlName="login">
-  <input type="text" placeholder="password" formControlName="password">
-  <input type="checkbox"  formControlName="remember">
-  <button>Submit</button>
-</form>
+<!--<h1 *ngIf="!!errorServer" class="error">{{errorServer}}</h1>-->
+
+<!--<div *ngIf="!errorServer">-->
+<!--  <div *ngFor="let todo of todos$ | async">-->
+<!--    <div>{{todo.title}} &#8986;{{todo.addedDate | date}}&#9889; {{todo.id}}</div>-->
+<!--    <button (click)="onChangeDelete(todo.id)">Delete</button>-->
+<!--  </div>-->
+<!--  <input #newHero type="text" (input)="onChangeCreate($event)">-->
+<!--  <button (click)="createTodo(); newHero.value = ''">Create</button>-->
+<!--  <div >{{error[0]}}</div>-->
+<!--</div>-->
+<!--<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">-->
+<!--  <input type="text" placeholder="login" formControlName="login">-->
+<!--  <input type="text" placeholder="password" formControlName="password">-->
+<!--  <input type="checkbox"  formControlName="remember">-->
+<!--  <button>Submit</button>-->
+<!--</form>-->

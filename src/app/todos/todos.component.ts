@@ -3,11 +3,12 @@ import {CommonModule} from '@angular/common';
 import {Todo, TodoService} from "../servise/todo.service";
 import {Observable} from "rxjs";
 import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {LoginComponent} from "../login/login/login.component";
 
 @Component({
   selector: 'app-todos',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LoginComponent],
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.scss'
 })

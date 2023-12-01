@@ -1,0 +1,10 @@
+<form [formGroup]="login" (ngSubmit)="onSumbut()">
+  <input type="text" formControlName="email" placeholder="email">
+  <div *ngIf="email!.invalid && (email!.touched || email!.dirty)">
+    <div *ngIf="login.errors?.['required']">email is required.</div>
+    <div *ngIf="login.errors?.['email']">email is not correct.</div>
+  </div>
+  <input type="password" formControlName="password" placeholder="password">
+  <input type="checkbox" formControlName="rememberMe">
+  <button [disabled]="login.invalid">Login</button>
+</form>
