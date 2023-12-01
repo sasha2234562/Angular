@@ -1,13 +1,13 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {Res, Todo, TodoService} from "../servise/todo.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {Observable, Subscription} from "rxjs";
+import {Todo, TodoService} from "../servise/todo.service";
+import {Observable} from "rxjs";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-todos',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './todos.component.html',
   styleUrl: './todos.component.scss'
 })
@@ -20,6 +20,12 @@ export class TodosComponent implements OnInit {
   error = this.todoService.error
   errorServer = ''
 
+  loginForm = new FormGroup({
+    login: new FormControl(''),
+    password: new FormControl(''),
+    remember: new FormControl(true)
+  })
+
   ngOnInit(): void {
     this.todos$ = this.todoService.todos$
     this.todoService.getTodos()
@@ -30,9 +36,13 @@ export class TodosComponent implements OnInit {
   }
 
   onChangeCreate(event: Event) {
-    this.title = (event.currentTarget as  HTMLInputElement).value
+    this.title = (event.currentTarget as HTMLInputElement).value
   }
-  createTodo(){
+
+  createTodo() {
     this.todoService.createTodo(this.title)
+  }
+  onSubmit(){
+    console.log(this.loginForm.value)
   }
 }

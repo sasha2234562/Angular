@@ -9,3 +9,9 @@
   <button (click)="createTodo(); newHero.value = ''">Create</button>
   <div >{{error[0]}}</div>
 </div>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <input type="text" placeholder="login" formControlName="login">
+  <input type="text" placeholder="password" formControlName="password">
+  <input type="checkbox"  formControlName="remember">
+  <button>Submit</button>
+</form>
