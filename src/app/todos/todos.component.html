@@ -7,4 +7,5 @@
   </div>
   <input #newHero type="text" (input)="onChangeCreate($event)">
   <button (click)="createTodo(); newHero.value = ''">Create</button>
+  <div >{{error[0]}}</div>
 </div>

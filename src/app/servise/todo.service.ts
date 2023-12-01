@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, map} from "rxjs";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {BehaviorSubject, catchError, EMPTY, map} from "rxjs";
 import {environment} from "../../environments/environment";
 
 export interface Todo {
@@ -26,7 +26,7 @@ export class TodoService {
   }
 
   todos$ = new BehaviorSubject<Todo[]>([])
-
+  error = []
   httpOptions = {
     withCredentials: true,
     headers: {
@@ -35,22 +35,36 @@ export class TodoService {
   }
 
   getTodos() {
-    return this.http.get<Todo[]>(environment.baseUrl, this.httpOptions).subscribe((t) => {
+    return this.http.get<Todo[]>(environment.baseUrl, this.httpOptions)
+      .pipe(catchError(this.catchErrorHandler.bind(this)))
+      .subscribe((t) => {
       this.todos$.next(t)
     })
   }
 
   deleteTodo(todoId: string) {
-     this.http.delete(`${environment.baseUrl}/${todoId}`, this.httpOptions).pipe(map(res=> {
-       return this.todos$.getValue().filter(i => i.id !== todoId)
-     })).subscribe(t => {
-       this.todos$.next(t)
+    this.http.delete(`${environment.baseUrl}/${todoId}`, this.httpOptions).pipe(map(() => {
+      return this.todos$.getValue().filter(i => i.id !== todoId)
+    }))
+      .pipe(catchError(this.catchErrorHandler.bind(this)))
+      .subscribe(t => {
+      this.todos$.next(t)
     })
   }
 
   createTodo(title: string) {
-     this.http.post<Res>(`${environment.baseUrl}`, {title}, this.httpOptions).subscribe(res => {
-      this.todos$.next([res.data.item, ...this.todos$.getValue()])
-    })
+    this.http.post<Res>(`${environment.baseUrl}s`, {title}, this.httpOptions)
+      .pipe(catchError(this.catchErrorHandler.bind(this)))
+      .subscribe(res => {
+        if (res.resultCode === 0) {
+          this.todos$.next([res.data.item, ...this.todos$.getValue()])
+        }
+        this.error = res.messages
+        console.log(this.error)
+      })
+  }
+
+  private catchErrorHandler(err: HttpErrorResponse) {
+    return EMPTY
   }
 }

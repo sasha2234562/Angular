@@ -17,7 +17,7 @@ export class TodosComponent implements OnInit {
 
   todos$!: Observable<Todo[]>
   title: string = ''
-  error = []
+  error = this.todoService.error
   errorServer = ''
 
   ngOnInit(): void {
