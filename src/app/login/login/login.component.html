@@ -1,10 +1,13 @@
-<form [formGroup]="login" (ngSubmit)="onSumbut()">
-  <input type="text" formControlName="email" placeholder="email">
-  <div *ngIf="email!.invalid && (email!.touched || email!.dirty)">
-    <div *ngIf="login.errors?.['required']">email is required.</div>
-    <div *ngIf="login.errors?.['email']">email is not correct.</div>
+<form [formGroup]="loginForm" (ngSubmit)="onSumbut()">
+  <input
+    type="text" formControlName="email"
+    placeholder="email"
+    required >
+  <div *ngIf="email!.invalid && (email!.touched || email!.dirty)"  class="error">
+    <div  *ngIf="email!.errors?.['required']">email is required.</div>
+    <div  *ngIf="email!.errors?.['pattern']">email is not correct.</div>
   </div>
-  <input type="password" formControlName="password" placeholder="password">
-  <input type="checkbox" formControlName="rememberMe">
-  <button [disabled]="login.invalid">Login</button>
+  <div><input type="password" formControlName="password" placeholder="password" required></div>
+  <div><input type="checkbox" formControlName="rememberMe"></div>
+  <button [disabled]="loginForm.invalid" type="submit">Login</button>
 </form>

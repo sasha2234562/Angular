@@ -23,19 +23,19 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get('https://social-network.samuraijs.com/api/1.1/auth/me').subscribe((res) => {
+    this.http.get('https://social-network.samuraijs.com/api/1.1/auth/me', this.httpOptions).subscribe((res) => {
       console.log(res)
     })
   }
 
-  login = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.pattern(/^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/)]),
     password: new FormControl(''),
     rememberMe: new FormControl(false)
   })
 
   get email() {
-    return this.login.get('email')
+    return this.loginForm.get('email')
   }
 
   onSumbut() {
